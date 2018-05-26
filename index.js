@@ -1,38 +1,50 @@
-var http = require("http");
-var url = require("url");
-var StringDecoder = require("string_decoder").StringDecoder;
+const http = require("http");
+const https = require("https");
+const fs = require("fs");
+const url = require("url");
+const StringDecoder = require("string_decoder").StringDecoder;
 
 // require config file
 const config = require("./config");
 
 // make a server that responds to request
 
-var server = http.createServer((req, res) => {
+// Instantiating http server
+const server = http.createServer((req, res) => {
   unifiedServer(req, res);
 });
 
+// Starting http server
 server.listen(config.httpPort, () => {
   console.log(
     `The server is listening on port: ${config.httpPort} in ${config.envName}`
   );
 });
 
+// Instantiate https server
+const httpsServer = https.createServer((req, res) => {
+  fs.readFileSync();
+  unifiedServer(req, res);
+});
+
+// Starting https server
+
 const unifiedServer = (req, res) => {
   //building the webservice
   //parse url
-  var parsedUrl = url.parse(req.url, true);
+  const parsedUrl = url.parse(req.url, true);
   //get path
-  var path = parsedUrl.pathname;
-  var trimmedPath = path.replace(/^\/+|\/+$/g, "");
+  const path = parsedUrl.pathname;
+  const trimmedPath = path.replace(/^\/+|\/+$/g, "");
   //get the query string as an object
-  var queryStringObject = parsedUrl.query;
+  const queryStringObject = parsedUrl.query;
   //get http method
-  var method = req.method;
+  const method = req.method;
   //get headers from req
-  var headers = req.headers;
+  const headers = req.headers;
   //get the payload
-  var decoder = new StringDecoder("utf-8");
-  var buffer = "";
+  const decoder = new StringDecoder("utf-8");
+  const buffer = "";
   req.on("data", data => {
     buffer += decoder.write(data);
   });
@@ -40,12 +52,12 @@ const unifiedServer = (req, res) => {
     buffer += decoder.end();
     //send res
     //choose the handler the req should use if not found hit the notFound handler
-    var chosenHandler =
+    const chosenHandler =
       typeof router[trimmedPath] !== "undefined"
         ? router[trimmedPath]
         : handlers.notFound;
     //construct object to send to handler
-    var data = {
+    const data = {
       trimmedPath: trimmedPath,
       queryStringObject: queryStringObject,
       method: method,
@@ -59,7 +71,7 @@ const unifiedServer = (req, res) => {
       //use the payload called by handler or send empty object
       payload = typeof payload == "object" ? payload : {};
       //convert the payload into a string
-      var payloadString = JSON.stringify(payload);
+      const payloadString = JSON.stringify(payload);
       //return the response
       res.setHeader("Content-Type", "application/json");
       res.writeHead(statusCode);
@@ -70,7 +82,7 @@ const unifiedServer = (req, res) => {
 };
 
 //define route handlers
-var handlers = {};
+const handlers = {};
 //sample handler
 handlers.sample = (data, callback) => {
   //callback http status code & payload
@@ -82,7 +94,7 @@ handlers.notFound = (data, callback) => {
   callback(404);
 };
 //define a request router
-var router = {
+const router = {
   sample: handlers.sample,
   notFound: handlers.notFound
 };
