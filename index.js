@@ -10,24 +10,32 @@ const config = require("./config");
 // make a server that responds to request
 
 // Instantiating http server
-const server = http.createServer((req, res) => {
+const httpServer = http.createServer((req, res) => {
   unifiedServer(req, res);
 });
 
 // Starting http server
-server.listen(config.httpPort, () => {
+httpServer.listen(config.httpPort, () => {
   console.log(
     `The server is listening on port: ${config.httpPort} in ${config.envName}`
   );
 });
 
 // Instantiate https server
-const httpsServer = https.createServer((req, res) => {
-  fs.readFileSync();
+const httpsOptions = {
+  key: fs.readFileSync("./https/key.pem"),
+  cert: fs.readFileSync("./https/cert.pem")
+};
+const httpsServer = https.createServer(httpsOptions, (req, res) => {
   unifiedServer(req, res);
 });
 
 // Starting https server
+httpsServer.listen(config.httpsPort, () => {
+  console.log(
+    `The server is listening on port: ${config.httpsPort} in ${config.envName}`
+  );
+});
 
 const unifiedServer = (req, res) => {
   //building the webservice
