@@ -1,0 +1,23 @@
+{
+  "name": "monitor-api",
+  "version": "1.0.0",
+  "description": "a basic api to monitor stuff",
+  "main": "index.js",
+  "dependencies": {
+    "micro": "^9.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arobida/nmc-restapi.git"
+  },
+  "author": "Andrew",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arobida/nmc-restapi/issues"
+  },
+  "homepage": "https://github.com/arobida/nmc-restapi#readme"
+}
