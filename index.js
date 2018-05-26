@@ -8,6 +8,16 @@ const config = require("./config");
 // make a server that responds to request
 
 var server = http.createServer((req, res) => {
+  unifiedServer(req, res);
+});
+
+server.listen(config.httpPort, () => {
+  console.log(
+    `The server is listening on port: ${config.httpPort} in ${config.envName}`
+  );
+});
+
+const unifiedServer = (req, res) => {
   //building the webservice
   //parse url
   var parsedUrl = url.parse(req.url, true);
@@ -57,13 +67,8 @@ var server = http.createServer((req, res) => {
       console.log("Returning this response:", statusCode, payloadString);
     });
   });
-});
+};
 
-server.listen(config.port, () => {
-  console.log(
-    `The server is listening on port: ${config.port} in ${config.envName}`
-  );
-});
 //define route handlers
 var handlers = {};
 //sample handler
