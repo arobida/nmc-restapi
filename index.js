@@ -6,9 +6,13 @@ const StringDecoder = require("string_decoder").StringDecoder;
 
 // require config file
 const config = require("./config");
+const _data = require("./lib/data");
+//testing for data
+_data.create("test", "new", { foo: "bar" }, err => {
+  console.log("This was an error...", err);
+});
 
 // make a server that responds to request
-
 // Instantiating http server
 const httpServer = http.createServer((req, res) => {
   unifiedServer(req, res);
@@ -52,7 +56,7 @@ const unifiedServer = (req, res) => {
   const headers = req.headers;
   //get the payload
   const decoder = new StringDecoder("utf-8");
-  const buffer = "";
+  let buffer = "";
   req.on("data", data => {
     buffer += decoder.write(data);
   });
@@ -96,13 +100,18 @@ handlers.sample = (data, callback) => {
   //callback http status code & payload
   callback(406, { name: "sample handler" });
 };
+// Ping handler
+handlers.ping = (data, callback) => {
+  callback(200, { status: "It's Alive!" });
+};
 //404 not found handler
 handlers.notFound = (data, callback) => {
   //callback http status code & payload
-  callback(404);
+  callback(404, { name: "Are you lost?" });
 };
 //define a request router
 const router = {
   sample: handlers.sample,
-  notFound: handlers.notFound
+  notFound: handlers.notFound,
+  ping: handlers.ping
 };
