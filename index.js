@@ -7,6 +7,7 @@ const StringDecoder = require('string_decoder').StringDecoder
 //* require config file
 const config = require('./config')
 const _data = require('./lib/data')
+const handlers = require('./lib/handlers')
 //* testing for data
 _data.delete('test', 'new', err => {
   console.log('This was the error...', err)
@@ -93,25 +94,9 @@ const unifiedServer = (req, res) => {
   })
 }
 
-//* define route handlers
-const handlers = {}
-//* sample handler
-handlers.sample = (data, callback) => {
-  //* callback http status code & payload
-  callback(406, { name: 'sample handler' })
-}
-//* Ping handler
-handlers.ping = (data, callback) => {
-  callback(200, { status: "It's Alive!" })
-}
-//* 404 not found handler
-handlers.notFound = (data, callback) => {
-  //* callback http status code & payload
-  callback(404, { name: 'Are you lost?' })
-}
 //* define a request router
 const router = {
-  sample: handlers.sample,
   notFound: handlers.notFound,
-  ping: handlers.ping
+  ping: handlers.ping,
+  users: handlers.users
 }
