@@ -96,7 +96,7 @@ const unifiedServer = (req, res) => {
 
 //* define a request router
 const router = {
-  '/': handlers.home,
+  home: handlers.home,
   notFound: handlers.notFound,
   ping: handlers.ping,
   users: handlers.users
