@@ -3,10 +3,10 @@ FROM node:4.4.5
 ENV LAST_UPDATED 20160605T165400
 
 # Copy source code
-COPY . /index
+COPY . /
 
 # Change working directory
-WORKDIR /index
+WORKDIR /
 
 # Install dependencies
 RUN npm install
@@ -15,4 +15,4 @@ RUN npm install
 EXPOSE 80
 
 # Launch application
-CMD ["npm","start"]
+CMD ["node","index.js"]

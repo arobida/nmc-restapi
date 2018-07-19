@@ -16,7 +16,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test spec ified\" && exit 1",
-    "start": "micro"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
