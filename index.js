@@ -5,13 +5,10 @@ const url = require('url')
 const StringDecoder = require('string_decoder').StringDecoder
 
 //* require config file
-const config = require('./config')
+const config = require('./lib/config')
 const _data = require('./lib/data')
 const handlers = require('./lib/handlers')
-//* testing for data
-_data.delete('test', 'new', err => {
-  console.log('This was the error...', err)
-})
+const helpers = require('./lib/helpers')
 
 //* make a server that responds to request
 //* Instantiating http server
@@ -75,7 +72,7 @@ const unifiedServer = (req, res) => {
       queryStringObject: queryStringObject,
       method: method,
       headers: headers,
-      payload: buffer
+      payload: helpers.parseJsonToObject(buffer)
     }
     //* router request to the handler specified in router
     chosenHandler(data, (statusCode, payload) => {
