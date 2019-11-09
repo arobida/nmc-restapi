@@ -1,0 +1,23 @@
+{
+	"name": "monitor-api",
+	"version": "1.0.0",
+	"description": "a nodejs app",
+	"main": "index.js",
+	"directories": {
+		"lib": "lib"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/arobida/nmc-restapi.git"
+	},
+	"author": "Andrew Robida",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/arobida/nmc-restapi/issues"
+	},
+	"homepage": "https://github.com/arobida/nmc-restapi#readme"
+}
