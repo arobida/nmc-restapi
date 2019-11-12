@@ -20,7 +20,7 @@ var httpServer = http.createServer(function(req, res) {
 
 // Start the HTTP server
 httpServer.listen(config.httpPort, function() {
-	console.log('The HTTP server is running on port ' + config.httpPort);
+	console.log('The HTTP server is running on port ' + config.httpPort,`on http:localhost:${config.httpPort}`);
 });
 
 // Instantiate the HTTPS server
@@ -101,7 +101,7 @@ var unifiedServer = function(req, res) {
 
 // Define the request router
 var router = {
-	'/': handlers.home,
+	'':handlers.home,
 	ping: handlers.ping,
 	users: handlers.users,
 	tokens: handlers.tokens,
