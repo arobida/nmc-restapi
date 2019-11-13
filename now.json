@@ -13,6 +13,11 @@
 		  "methods": ["GET"]
 		},
 		{
+			"src": "/test",
+			"dest": "/index.js",
+			"methods": ["GET"]
+		  },
+		{
 		  "src": "/users",
 		  "dest": "/index.js",
 		  "methods": ["POST","GET","PUT","DELETE"]
