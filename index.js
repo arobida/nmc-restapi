@@ -12,6 +12,7 @@ var config = require('./lib/config');
 var fs = require('fs');
 var handlers = require('./lib/handlers');
 var helpers = require('./lib/helpers');
+var path = require('path')
 
 // Instantiate the HTTP server
 var httpServer = http.createServer(function(req, res) {
@@ -25,8 +26,8 @@ httpServer.listen(config.httpPort, function() {
 
 // Instantiate the HTTPS server
 var httpsServerOptions = {
-	key: fs.readFileSync('./https/key.pem'),
-	cert: fs.readFileSync('./https/cert.pem')
+	key: fs.readFileSync(path.join(__dirname,'./https/key.pem')),
+	cert: fs.readFileSync(path.join(__dirname,'./https/cert.pem'))
 };
 var httpsServer = https.createServer(httpsServerOptions, function(req, res) {
 	unifiedServer(req, res);
@@ -107,3 +108,5 @@ var router = {
 	tokens: handlers.tokens,
 	checks: handlers.checks
 };
+
+console.log(process.env)
